@@ -4,9 +4,10 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Roles') }}
             </h2>
+            @can('create roles') 
             <a href="{{ route('roles.create') }}"
                 class="inline-flex mt-1 items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Create</a>
-        </div>
+        @endcan </div>
     </x-slot>
 
     <div class="py-12">
@@ -33,10 +34,14 @@
                                 </td>
                                 <td class="px-6 py-3 text-left">
                                     {{ \Carbon\Carbon::parse($role->created_at)->format('d M, Y') }}</td>
-                                <td class="px-6 py-3 text-center"> <a href="{{ route('roles.edit', $role->id) }}"
-                                        class="bg-slate-700 text-sm rounded-md text-white px-3 py-2">Edit</a><a
+                                <td class="px-6 py-3 text-center">@can('edit roles')
+
+                                <a href="{{ route('roles.edit', $role->id) }}"
+                                        class="bg-slate-700 text-sm rounded-md text-white px-3 py-2">Edit</a> @endcan @can('delete roles')
+
+                                       <a
                                         href="javascript:void(0);" onclick="deleteRole({{ $role->id }})"
-                                        class="bg-red-600 text-sm rounded-md text-white px-3 py-2">Delete</a> </td>
+                                        class="bg-red-600 text-sm rounded-md text-white px-3 py-2">Delete</a> @endcan </td>
 
                             </tr>
                         @endforeach

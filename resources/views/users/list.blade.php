@@ -35,10 +35,16 @@
                                 </td>
                                 <td class="px-6 py-3 text-left">
                                     {{ \Carbon\Carbon::parse($user->created_at)->format('d M, Y') }}</td>
-                                 <td class="px-6 py-3 text-center"> <a href="{{ route('users.edit', $user->id) }}"
-                                        class="bg-slate-700 text-sm rounded-md text-white px-3 py-2">Edit</a>{{--<a
+                                <td class="px-6 py-3 text-center">
+                                    @can('edit users')
+                                        <a href="{{ route('users.edit', $user->id) }}"
+                                            class="bg-slate-700 text-sm rounded-md text-white px-3 py-2">Edit</a>
+                                        @endcan @can('delete users')
+                                        {{-- <a
                                         href="javascript:void(0);" onclick="deleteuser({{ $user->id }})"
-                                        class="bg-red-600 text-sm rounded-md text-white px-3 py-2">Delete</a>--}} </td>
+                                        class="bg-red-600 text-sm rounded-md text-white px-3 py-2">Delete</a> --}}
+                                    @endcan
+                                </td>
 
                             </tr>
                         @endforeach

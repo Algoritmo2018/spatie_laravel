@@ -4,8 +4,9 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Articles') }}
             </h2>
-            <a href="{{ route('articles.create') }}"
-                class="inline-flex mt-1 items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Create</a>
+           @can('create articles') 
+           <a href="{{ route('articles.create') }}"
+                class="inline-flex mt-1 items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Create</a> @endcan
         </div>
     </x-slot>
 
@@ -34,11 +35,15 @@
                                 <td class="px-6 py-3 text-left">{{ $article->author }}</td>
                                 <td class="px-6 py-3 text-left">
                                     {{ \Carbon\Carbon::parse($article->created_at)->format('d M, Y') }}</td>
-                                <td class="px-6 py-3 text-center"> <a href="{{ route('articles.edit', $article->id) }}"
+                                <td class="px-6 py-3 text-center">
+                                    @can('edit articles')
+                                    <a href="{{ route('articles.edit', $article->id) }}"
                                         class="bg-slate-700 text-sm rounded-md text-white px-3 py-2">Edit</a>
+                                        @endcan
+                                        @can('delete articles')
                                          <a
                                         href="javascript:void(0);" onclick="deleteArticle({{ $article->id }})"
-                                        class="bg-red-600 text-sm rounded-md text-white px-3 py-2">Delete</a>
+                                        class="bg-red-600 text-sm rounded-md text-white px-3 py-2">Delete</a> @endcan
                                 </td>
 
                             </tr>

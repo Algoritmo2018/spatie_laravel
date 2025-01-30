@@ -64,7 +64,7 @@ class UserController extends Controller implements HasMiddleware
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-
+ 
         $user->syncRoles($request->role);
 
         return redirect()->route('users.index')->with('success', 'User added successfully.');
